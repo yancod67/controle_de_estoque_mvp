@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista de Produtos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+      <div class="container">
+        <a class="navbar-brand" href="/">Sistema de Estoque</a>
+        <div class="d-flex gap-2">
+          <a class="btn btn-success" href="/criar/">Novo Produto</a>
+
+          <a class="btn btn-danger" href="/logout/">Sair do login</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Produtos</h5>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead class="table-primary">
+                <tr><th>ID</th><th>Nome</th><th>Qtd</th><th>Preço</th><th>Data</th><th>Ações</th></tr>
+              </thead>
+              <tbody>
+                {% for p in produtos %}
+                <tr>
+                  <td>{{ p.id }}</td>
+                  <td>{{ p.nome }}</td>
+                  <td>{{ p.quantidade }}</td>
+                  <td>R$ {{ p.preco }}</td>
+                  <td>{{ p.data_atualizacao|date:"d/m/Y H:i:s" }}</td>
+                  <td>
+                    <a class="btn btn-sm btn-primary" href="/editar/{{ p.id }}/">Editar</a>
+                    <a class="btn btn-sm btn-danger" href="/excluir/{{ p.id }}/">Excluir</a>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6" class="text-center">Nenhum produto cadastrado</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

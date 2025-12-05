@@ -1,0 +1,23 @@
+SISTEMA_ESTOQUE - Projeto Django simples para controle de estoque
+
+Como usar:
+
+1)  Criar e ativar o virtualenv Windows:
+   python -m venv venv
+   .\venv\Scripts\Activate
+
+2)  Instalar dependências: pip install -r requirements.txt
+
+3)  Configurar banco de dados no arquivo sistema_estoque/settings.py
+
+4)  Criar banco no MySQL (opcional caso esteja usando MySQL): 
+   CREATE DATABASE banco_estoque CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+5)  Executar migrations: 
+   manage.py migrate
+
+6)  Criar superusuário para acessar o sistema: 
+   python manage.py createsuperuser
+
+7)  Iniciar o servidor: 
+   python manage.py runserver
