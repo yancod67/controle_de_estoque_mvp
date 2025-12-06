@@ -35,7 +35,7 @@
           <div class="table-responsive">
             <table class="table table-striped">
               <thead class="table-primary">
-                <tr><th>ID</th><th>Nome</th><th>Qtd</th><th>Preço</th><th>Data</th><th>Ações</th></tr>
+                <tr><th>ID</th><th>Nome</th><th>Qtd</th><th>Preço</th><th>Data</th><th>Data Vencimento</th><th>Ações</th></tr>
               </thead>
               <tbody>
                 {% for p in produtos %}
@@ -43,15 +43,17 @@
                   <td>{{ p.id }}</td>
                   <td>{{ p.nome }}</td>
                   <td>{{ p.quantidade }}</td>
+                  <td>{{ p.un_medida }}</td> 
                   <td>R$ {{ p.preco }}</td>
                   <td>{{ p.data_atualizacao|date:"d/m/Y H:i:s" }}</td>
+                  <td>{{ p.vencimento }}</td>
                   <td>
                     <a class="btn btn-sm btn-primary" href="/editar/{{ p.id }}/">Editar</a>
                     <a class="btn btn-sm btn-danger" href="/excluir/{{ p.id }}/">Excluir</a>
                   </td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="6" class="text-center">Nenhum produto cadastrado</td></tr>
+                <tr><td colspan="8" class="text-center">Nenhum produto cadastrado</td></tr>
                 {% endfor %}
               </tbody>
             </table>
