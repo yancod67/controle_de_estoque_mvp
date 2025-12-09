@@ -42,6 +42,13 @@
               <div class="col-md-6 mb-3">
                 <label class="form-label">Quantidade</label>
                 <input class="form-control" type="number" name="quantidade" value="{{ produto.quantidade }}">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Unidade de Medida</label>
+                <input class="form-control" name="un_medida" value="{{ produto.un_medida }}">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Data de Vencimento</label>
+                <input class="form-control" type="date" name="data_vencimento" value="{{ produto.data_vencimento|default_if_none:'' }}">
               </div>
             </div>
             <button class="btn btn-primary" type="submit">Atualizar</button>

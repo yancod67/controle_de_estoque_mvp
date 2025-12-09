@@ -42,6 +42,14 @@
               <div class="col-md-6 mb-3">
                 <label class="form-label">Quantidade</label>
                 <input class="form-control" type="number" name="quantidade" value="{{ quantidade|default:'0' }}">
+                <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Unidade de Medida</label>
+                <input class="form-control" name="un_medida" value="{{ un_medida|default:'unidade' }}">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Data de Vencimento</label>
+                <input class="form-control" type="date" name="data_vencimento" value="{{ data_vencimento|default:'' }}">
               </div>
             </div>
             <button class="btn btn-primary" type="submit">Salvar</button>

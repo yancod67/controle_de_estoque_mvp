@@ -16,6 +16,8 @@ def criar_produto(request):
         descricao = request.POST.get('descricao', '').strip()
         preco = request.POST.get('preco', '0').strip()
         quantidade = request.POST.get('quantidade', '0').strip()
+        un_medida = request.POST.get('un_medida', 'unidade').strip()
+        data_vencimento = request.POST.get('data_vencimento') or None 
 
         errors = []
         if not nome:
@@ -40,10 +42,12 @@ def criar_produto(request):
                 'nome': nome,
                 'descricao': descricao,
                 'preco': preco,
-                'quantidade': quantidade
+                'quantidade': quantidade,
+                'un_medida' : un_medida,
+                'data_vencimento' : data_vencimento
             })
 
-        Produto.objects.create(nome=nome, descricao=descricao, preco=preco_val, quantidade=quantidade_val)
+        Produto.objects.create(nome=nome, descricao=descricao, preco=preco_val, quantidade=quantidade_val,un_medida=un_medida, data_vencimento=data_vencimento)
         messages.success(request, 'Produto criado com sucesso.')
         return redirect(reverse('produtos:listar_produtos'))
 
@@ -57,6 +61,8 @@ def editar_produto(request, id):
         descricao = request.POST.get('descricao', '').strip()
         preco = request.POST.get('preco', '0').strip()
         quantidade = request.POST.get('quantidade', '0').strip()
+        un_medida = request.POST.get('un_medida', produto.un_medida).strip()
+        data_vencimento = request.POST.get('data_vencimento') or None
 
         errors = []
         if not nome:
@@ -83,6 +89,8 @@ def editar_produto(request, id):
         produto.descricao = descricao
         produto.preco = preco_val
         produto.quantidade = quantidade_val
+        produto.un_medida = un_medida
+        produto.data_vencimento = data_vencimento
         produto.save()
         messages.success(request, 'Produto atualizado.')
         return redirect(reverse('produtos:listar_produtos'))
