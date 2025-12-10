@@ -13,7 +13,6 @@
         <a class="navbar-brand" href="/">Sistema de Estoque</a>
         <div class="d-flex gap-2">
           <a class="btn btn-success" href="/criar/">Novo Produto</a>
-
           <a class="btn btn-danger" href="/logout/">Sair do login</a>
         </div>
       </div>
@@ -29,6 +28,37 @@
         {% endfor %}
       {% endif %}
 
+      <!-- Card de Filtros -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Filtros</h5>
+          <form method="get" class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Nome do Produto</label>
+              <input type="text" class="form-control" name="nome" value="{{ nome_filtro|default:'' }}" placeholder="Digite o nome...">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Unidade de Medida</label>
+              <select class="form-control" name="un_medida">
+                <option value="">Todas as unidades</option>
+                {% for unidade in unidades %}
+                  <option value="{{ unidade }}" {% if unidade == un_medida_filtro %}selected{% endif %}>{{ unidade }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Vencimento (a partir de)</label>
+              <input type="date" class="form-control" name="vencimento" value="{{ vencimento_filtro|default:'' }}">
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Filtrar</button>
+              <a href="{% url 'produtos:listar_produtos' %}" class="btn btn-secondary">Limpar Filtros</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Card de Produtos -->
       <div class="card shadow-sm">
         <div class="card-body">
           <h5 class="card-title">Produtos</h5>
@@ -39,14 +69,15 @@
                   <th>ID</th>
                   <th>Nome</th>
                   <th>Qtd</th>
-                  <th>Un_medida</th>
+                  <th>Un. Medida</th>
                   <th>Preço</th>
                   <th>Data</th>
                   <th>Vencimento</th>
-                  <th>Ações</th></th>
+                  <th>Ações</th>
                 </tr>
               </thead>
-              {% for p in produtos%}
+              <tbody>
+                {% for p in produtos %}
                 <tr>
                   <td>{{ p.id }}</td>
                   <td>{{ p.nome }}</td>
@@ -54,14 +85,20 @@
                   <td>{{ p.un_medida }}</td>
                   <td>R$ {{ p.preco }}</td>
                   <td>{{ p.data_atualizacao|date:"d/m/Y H:i:s" }}</td>
-                  <td>{{ p.data_vencimento|date:"d/m/Y" }}</td>
+                  <td>{% if p.vencimento %}{{ p.vencimento|date:"d/m/Y" }}{% else %}—{% endif %}</td>
                   <td>
                     <a class="btn btn-sm btn-primary" href="/editar/{{ p.id }}/">Editar</a>
                     <a class="btn btn-sm btn-danger" href="/excluir/{{ p.id }}/">Excluir</a>
                   </td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="8" class="text-center">Nenhum produto cadastrado</td></tr>
+                <tr><td colspan="8" class="text-center text-muted">
+                  {% if nome_filtro or un_medida_filtro or vencimento_filtro %}
+                    Nenhum produto encontrado com os filtros aplicados
+                  {% else %}
+                    Nenhum produto cadastrado
+                  {% endif %}
+                </td></tr>
                 {% endfor %}
               </tbody>
             </table>

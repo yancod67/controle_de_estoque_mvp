@@ -48,7 +48,7 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">Data de Vencimento</label>
-                <input class="form-control" type="date" name="data_vencimento" value="{{ produto.data_vencimento|default_if_none:'' }}">
+                <input class="form-control" type="date" name="vencimento" value="{{ produto.vencimento|default_if_none:'' }}">
               </div>
             </div>
             <button class="btn btn-primary" type="submit">Atualizar</button>
