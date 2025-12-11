@@ -1,0 +1,3 @@
+[submodule "dashboard"]
+	path = dashboard
+	url = https://github.com/leonildo0/SistemaDashboard.git
